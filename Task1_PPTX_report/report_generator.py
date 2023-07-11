@@ -30,10 +30,10 @@ def create_presentation(json_data):
         elif item['type'] == 'list':
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            content = slide.placeholders[1]
+            #content = slide.placeholders[1]
 
             title.text = item['title']
-            content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
+            #content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
 
         elif item['type'] == 'picture':
             slide = presentation.slides.add_slide(presentation.slide_layouts[10])
@@ -41,12 +41,12 @@ def create_presentation(json_data):
             pic = slide.placeholders[1]
 
             title.text = item['title']
-            pic.insert_picture(item['content'])
+            #pic.insert_picture(item['content'])
 
         elif item['type'] == 'plot':
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            content = slide.placeholders[1]
+            #content = slide.placeholders[1]
 
             title.text = item['title']
             content.text = f"Plot: {item['content']}"
