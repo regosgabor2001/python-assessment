@@ -36,7 +36,7 @@ def create_presentation(json_data):
             content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
 
         elif item['type'] == 'picture':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[6])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[10])
             title = slide.shapes.title
             pic = slide.placeholders[1]
 
