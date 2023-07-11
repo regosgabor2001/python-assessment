@@ -2,7 +2,7 @@ import argparse
 import json
 
 def read_config_file(config_file):
-    with open(sample.json, 'r') as f:
+    with open(config_file, 'r') as f:
         config = json.load(f)
     return config
 
