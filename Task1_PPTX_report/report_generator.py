@@ -28,7 +28,7 @@ def create_presentation(data):
             content.text = item['content']
 
         elif item['type'] == 'list':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[5])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[1])
             title = slide.shapes.title
             #content = slide.placeholders[1]
 
@@ -36,9 +36,9 @@ def create_presentation(data):
             #content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
 
         elif item['type'] == 'picture':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[8])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            pic = slide.placeholders[1]
+            #pic = slide.placeholders[1]
 
             title.text = item['title']
             #pic.insert_picture(item['content'])
