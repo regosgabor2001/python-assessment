@@ -9,7 +9,7 @@ def readFile():
     return data
 
 
-def create_presentation(data):
+def createPresentation(data):
     presentation = Presentation()
 
     for item in data['presentation']:
@@ -22,9 +22,9 @@ def create_presentation(data):
             subtitle.text = item['content']
 
         elif item['type'] == 'text':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[1])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            content = slide.placeholders[1]
+            content = slide.shapes.add_textbox(Inches(1), Inches(1.5), Inches(1), Inches(1)).text_frame
 
             title.text = item['title']
             content.text = item['content']
@@ -32,15 +32,24 @@ def create_presentation(data):
         elif item['type'] == 'list':
             slide = presentation.slides.add_slide(presentation.slide_layouts[1])
             title = slide.shapes.title
-            content = slide.placeholders[1]
 
             title.text = item['title']
-            #content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
 
+            for thing in item['content']:
+                if thing['level'] == 1:
+                    content = slide.shapes.placeholders[1].text_frame.add_paragraph()
+                    content.text = thing['text']
+                    content.level = 1
+                elif thing['level'] == 2:
+                    content = slide.shapes.placeholders[1].text_frame.add_paragraph()
+                    content.text = thing['text']
+                    content.level = 2
+
+            
         elif item['type'] == 'picture':
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            pic = "Task1_PPTX_report/econ.png"
+            pic = item['content']
 
             title.text = item['title']
             
@@ -58,5 +67,5 @@ def create_presentation(data):
 
 
 data = readFile()
-presentation = create_presentation(data)
+presentation = createPresentation(data)
 presentation.save("example.pptx")
