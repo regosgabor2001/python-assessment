@@ -1,14 +1,15 @@
 import json
+import csv
 import os
 from pptx import Presentation
 from pptx.util import Inches
 import matplotlib.pyplot as plt
+import numpy as np
 
 def readFile():
     with open("Task1_PPTX_report/sample.json", "r") as f:
         data = json.load(f)
     return data
-
 
 def createPresentation(data):
     presentation = Presentation()
@@ -60,15 +61,22 @@ def createPresentation(data):
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
 
-            # Sample data
-            x = [1, 2, 3]
-            y = [2, 4, 6]
+            title.text = item['title']
+
+            x = []
+            y = []
+
+            with open(item['content'], 'r') as f:
+                csv_reader = csv.reader(f, delimiter=';')
+            
+                for row in csv_reader:
+                    x.append(row[0])
+                    y.append(row[1])
 
             # Create the XY plot using matplotlib
-            plt.plot(x, y, 'o-')
-            plt.xlabel('X')
-            plt.ylabel('Y')
-            plt.title('XY Plot')
+            plt.plot(x, y, 'b-')
+            plt.xlabel(item['configuration']['x-label'])
+            plt.ylabel(item['configuration']['y-label'])
 
             # Save the plot as an image
             plt.savefig('xy_plot.png')
@@ -76,18 +84,12 @@ def createPresentation(data):
             # Close the plot to free up resources
             plt.close()
 
-            # Create a presentation object
-            presentation = Presentation()
-
-            # Create a slide with a blank layout
-            slide_layout = presentation.slide_layouts[5]  # Use index 5 for blank slide layout
-            slide = presentation.slides.add_slide(slide_layout)
-
             # Add the image to the slide
             x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4)
             slide.shapes.add_picture('xy_plot.png', x, y, cx, cy)
 
             
+
 
     return presentation
 
