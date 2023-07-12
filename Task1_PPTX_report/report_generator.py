@@ -2,6 +2,7 @@ import json
 import os
 from pptx import Presentation
 from pptx.util import Inches
+import matplotlib.pyplot as plt
 
 def readFile():
     with open("Task1_PPTX_report/sample.json", "r") as f:
@@ -56,12 +57,37 @@ def createPresentation(data):
             slide.shapes.add_picture(pic,Inches(3),Inches(2))
 
         elif item['type'] == 'plot':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[1])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            content = slide.placeholders[1]
 
-            title.text = item['title']
-            content.text = f"Plot: {item['content']}"
+            # Sample data
+            x = [1, 2, 3]
+            y = [2, 4, 6]
+
+            # Create the XY plot using matplotlib
+            plt.plot(x, y, 'o-')
+            plt.xlabel('X')
+            plt.ylabel('Y')
+            plt.title('XY Plot')
+
+            # Save the plot as an image
+            plt.savefig('xy_plot.png')
+
+            # Close the plot to free up resources
+            plt.close()
+
+            # Create a presentation object
+            presentation = Presentation()
+
+            # Create a slide with a blank layout
+            slide_layout = presentation.slide_layouts[5]  # Use index 5 for blank slide layout
+            slide = presentation.slides.add_slide(slide_layout)
+
+            # Add the image to the slide
+            x, y, cx, cy = Inches(2), Inches(2), Inches(6), Inches(4)
+            slide.shapes.add_picture('xy_plot.png', x, y, cx, cy)
+
+            
 
     return presentation
 
