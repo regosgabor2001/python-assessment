@@ -3,8 +3,10 @@ import os
 from pptx import Presentation
 from pptx.util import Inches
 
-with open(os.path.abspath("Task1_PPTX_report\sample.json"), "r") as f:
-    data = json.load(f)
+def readFile():
+    with open("Task1_PPTX_report/sample.json", "r") as f:
+        data = json.load(f)
+    return data
 
 
 def create_presentation(data):
@@ -42,7 +44,7 @@ def create_presentation(data):
 
             title.text = item['title']
             
-            slide.shapes.add_picture(pic,3,2)
+            slide.shapes.add_picture(pic,Inches(3),Inches(2))
 
         elif item['type'] == 'plot':
             slide = presentation.slides.add_slide(presentation.slide_layouts[1])
@@ -55,6 +57,6 @@ def create_presentation(data):
     return presentation
 
 
-
+data = readFile()
 presentation = create_presentation(data)
 presentation.save("example.pptx")
