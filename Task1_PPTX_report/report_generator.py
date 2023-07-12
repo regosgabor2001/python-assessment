@@ -30,7 +30,7 @@ def create_presentation(data):
         elif item['type'] == 'list':
             slide = presentation.slides.add_slide(presentation.slide_layouts[1])
             title = slide.shapes.title
-            #content = slide.placeholders[1]
+            content = slide.placeholders[1]
 
             title.text = item['title']
             #content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
@@ -38,15 +38,16 @@ def create_presentation(data):
         elif item['type'] == 'picture':
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            #pic = slide.placeholders[1]
+            pic = slide.placeholders[1]
 
             title.text = item['title']
-            #pic.insert_picture(item['content'])
+            #
+            # pic.insert_picture(item['content'])
 
         elif item['type'] == 'plot':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[5])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[1])
             title = slide.shapes.title
-            #content = slide.placeholders[1]
+            content = slide.placeholders[1]
 
             title.text = item['title']
             content.text = f"Plot: {item['content']}"
