@@ -28,7 +28,7 @@
     {
       "type" : "plot",
       "title" : "The Title Text",
-      "content" : "sample.dat",
+      "content" : "Task1_PPTX_report/sample.csv",
       "configuration" : {
         "x-label" : "The Plot X Label",
         "y-label" : "The Plot Y Label"
