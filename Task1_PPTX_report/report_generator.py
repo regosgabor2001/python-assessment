@@ -38,11 +38,11 @@ def create_presentation(data):
         elif item['type'] == 'picture':
             slide = presentation.slides.add_slide(presentation.slide_layouts[5])
             title = slide.shapes.title
-            pic = slide.placeholders[1]
+            pic = "Task1_PPTX_report/econ.png"
 
             title.text = item['title']
-            #
-            # pic.insert_picture(item['content'])
+            
+            slide.shapes.add_picture(pic,3,2)
 
         elif item['type'] == 'plot':
             slide = presentation.slides.add_slide(presentation.slide_layouts[1])
