@@ -7,10 +7,10 @@ with open(os.path.abspath("Task1_PPTX_report\sample.json"), "r") as f:
     data = json.load(f)
 
 
-def create_presentation(json_data):
+def create_presentation(data):
     presentation = Presentation()
 
-    for item in json_data['presentation']:
+    for item in data['presentation']:
         if item['type'] == 'title':
             slide = presentation.slides.add_slide(presentation.slide_layouts[0])
             title = slide.shapes.title
