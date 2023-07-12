@@ -36,7 +36,7 @@ def create_presentation(data):
             #content.text = '\n'.join([f"{'*' * level} {text}" for level, text in item['content']])
 
         elif item['type'] == 'picture':
-            slide = presentation.slides.add_slide(presentation.slide_layouts[10])
+            slide = presentation.slides.add_slide(presentation.slide_layouts[8])
             title = slide.shapes.title
             pic = slide.placeholders[1]
 
@@ -50,8 +50,6 @@ def create_presentation(data):
 
             title.text = item['title']
             content.text = f"Plot: {item['content']}"
-
-            # Add code to generate and insert a plot based on the given configuration
 
     return presentation
 
