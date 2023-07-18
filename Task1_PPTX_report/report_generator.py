@@ -5,6 +5,9 @@ from pptx import Presentation
 from pptx.util import Inches
 from pptx.enum.chart import XL_CHART_TYPE
 from pptx.chart.data import XySeriesData,XyChartData
+import math
+from pptx.enum.chart import XL_MARKER_STYLE
+
 
 def readFile():
     with open("Task1_PPTX_report/sample.json", "r") as f:
@@ -79,12 +82,20 @@ def createPresentation(data):
             for x, y in list(zip(xValues, yValues)):
                 cd.add_data_point(x, y, number_format=None)
 
-            x, y, cx, cy = Inches(1), Inches(2), Inches(6), Inches(6)
+            x, y, cx, cy = Inches(1), Inches(2), Inches(7), Inches(5)
             chart = slide.shapes.add_chart(XL_CHART_TYPE.XY_SCATTER_LINES_NO_MARKERS, x, y, cx, cy, chart_data).chart
-            chart.category_axis.axis_title.text_frame.text= "XTitle"
-            chart.value_axis.axis_title.text_frame.text= "YTitle"
+            chart.category_axis.axis_title.text_frame.text= item['configuration']['x-label']
+            chart.value_axis.axis_title.text_frame.text= item['configuration']['y-label']
 
-            #chart.chart_title.text_frame.text='ChartTitle'
+            chart.has_legend = False
+            for series in chart.series:
+                series.format.line.visible = False
+
+            chart.value_axis.minimum_scale = math.floor(float(yValues[0]))
+            chart.category_axis.minimum_scale = math.floor(float(xValues[0]))
+
+            chart.value_axis.maximum_scale = math.ceil(float(yValues[len(yValues)-1]))
+            chart.category_axis.maximum_scale = math.ceil(float(xValues[len(xValues)-1]))
 
             
 
@@ -94,4 +105,4 @@ def createPresentation(data):
 
 data = readFile()
 presentation = createPresentation(data)
-presentation.save("example.pptx")
+presentation.save("result.pptx")
